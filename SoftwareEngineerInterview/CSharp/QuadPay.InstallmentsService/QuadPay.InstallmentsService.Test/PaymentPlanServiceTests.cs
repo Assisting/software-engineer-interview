@@ -4,7 +4,7 @@ using Xunit;
 
 namespace QuadPay.InstallmentsService.Test
 {
-    public class PaymentPlanFactoryTests
+    public class PaymentPlanServiceTests
     {
         [Fact]
         public void WhenCreatePaymentPlanWithValidOrderAmount_ShouldReturnValidPaymentPlan()

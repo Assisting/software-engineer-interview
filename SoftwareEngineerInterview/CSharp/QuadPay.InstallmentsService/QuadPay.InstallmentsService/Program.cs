@@ -15,6 +15,22 @@ namespace QuadPay.InstallmentsService
     {
         public static void Main(string[] args)
         {
+            if (args.Length == 0)
+            {
+                Console.WriteLine("No arguments were given. Please provide the purchase amount for the payment plan.");
+
+                return;
+            }
+            
+            var isDecimal = decimal.TryParse(args[0], out var amount);
+            
+            if (!isDecimal)
+            {
+                Console.WriteLine($"The input amount of '{args[0]}' is not a valid purchase amount.");
+
+                return;
+            }
+            
             var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             
             var host = new HostBuilder()
@@ -39,9 +55,9 @@ namespace QuadPay.InstallmentsService
             
             var paymentPlanService = host.Services.GetRequiredService<IPaymentPlanService>();
 
-            var paymentPlan = paymentPlanService.CreatePaymentPlan((decimal)525.57);
+            var paymentPlan = paymentPlanService.CreatePaymentPlan(amount);
 
-            OutputResults((decimal)525.57, paymentPlan);
+            OutputResults(amount, paymentPlan);
         }
 
         private static void OutputResults(decimal amountRequested, PaymentPlan paymentPlan)
@@ -58,7 +74,7 @@ namespace QuadPay.InstallmentsService
 
             output.AppendLine($"\nTotal amount paid:\t{totalAmountPaid:$0.00}");
             output.AppendLine("===============================");
-            output.AppendLine("Completed!");
+            output.AppendLine("\nCompleted!");
             
             Console.WriteLine(output.ToString());
         }

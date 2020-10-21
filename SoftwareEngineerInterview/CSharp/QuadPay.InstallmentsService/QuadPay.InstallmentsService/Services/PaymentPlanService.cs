@@ -38,7 +38,7 @@ namespace QuadPay.InstallmentsService.Services
             };
         }
         
-        private IEnumerable<Installment> GenerateBaseInstallments(decimal baseInstallmentAmount, int numberOfPayments, int weekPayInterval)
+        private IList<Installment> GenerateBaseInstallments(decimal baseInstallmentAmount, int numberOfPayments, int weekPayInterval)
         {
             var installments = new List<Installment>();
 		
@@ -62,7 +62,7 @@ namespace QuadPay.InstallmentsService.Services
             return installments;
         }
         
-        private void DistributeRemainder(IEnumerable<Installment> installments, decimal remainder)
+        private void DistributeRemainder(IList<Installment> installments, decimal remainder)
         {
             var iterations = (int)(remainder * 100);
 		
