@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace QuadPay.InstallmentsService
+namespace QuadPay.InstallmentsService.Models
 {
     /// <summary>
     /// Data structure which defines all the properties for a purchase installment plan.
@@ -11,6 +12,6 @@ namespace QuadPay.InstallmentsService
 
 		public decimal PurchaseAmount { get; set; }
 
-        public Installment[] Installments { get; set; }
+        public IList<Installment> Installments { get; set; }
     }
 }

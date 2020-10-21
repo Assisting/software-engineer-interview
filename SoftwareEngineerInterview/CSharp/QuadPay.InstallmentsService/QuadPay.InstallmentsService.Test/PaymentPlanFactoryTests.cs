@@ -1,3 +1,4 @@
+using QuadPay.InstallmentsService.Services;
 using Shouldly;
 using Xunit;
 
@@ -9,10 +10,10 @@ namespace QuadPay.InstallmentsService.Test
         public void WhenCreatePaymentPlanWithValidOrderAmount_ShouldReturnValidPaymentPlan()
         {
             // Arrange
-            var paymentPlanFactory = new PaymentPlanFactory();
+            var paymentPlanService = new PaymentPlanService();
             
             // Act
-            var paymentPlan = paymentPlanFactory.CreatePaymentPlan(123.45M);
+            var paymentPlan = paymentPlanService.CreatePaymentPlan(123.45M);
 
             // Assert
             paymentPlan.ShouldNotBeNull();
