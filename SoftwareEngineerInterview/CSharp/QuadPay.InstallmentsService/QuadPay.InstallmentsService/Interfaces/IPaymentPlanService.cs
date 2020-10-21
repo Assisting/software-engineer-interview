@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using QuadPay.InstallmentsService.Models;
 
 namespace QuadPay.InstallmentsService.Interfaces
@@ -10,6 +9,6 @@ namespace QuadPay.InstallmentsService.Interfaces
         /// </summary>
         /// <param name="purchaseAmount">The total amount for the purchase that the customer is making.</param>
         /// <returns>The PaymentPlan created with all properties set.</returns>
-        Task<PaymentPlan> CreatePaymentPlan(decimal purchaseAmount);
+        PaymentPlan CreatePaymentPlan(decimal purchaseAmount);
     }
 }

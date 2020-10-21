@@ -12,6 +12,6 @@ namespace QuadPay.InstallmentsService.Models
 
 		public decimal PurchaseAmount { get; set; }
 
-        public IList<Installment> Installments { get; set; }
+        public IEnumerable<Installment> Installments { get; set; }
     }
 }
