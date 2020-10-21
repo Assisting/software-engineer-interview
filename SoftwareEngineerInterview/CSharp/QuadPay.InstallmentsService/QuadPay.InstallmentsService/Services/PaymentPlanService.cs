@@ -21,6 +21,7 @@ namespace QuadPay.InstallmentsService.Services
         /// <returns>The PaymentPlan created with all properties set.</returns>
         public PaymentPlan CreatePaymentPlan(decimal purchaseAmount)
         {
+            // Prefer to truncate so we can round down to the nearest penny, rather than round up.
             var baseInstallmentAmount = Math.Truncate(purchaseAmount / NumberOfPayments * 100) / 100;
             var remainder = Math.Round(purchaseAmount % baseInstallmentAmount / 100 * 100, 2);
             var installments = GenerateBaseInstallments(baseInstallmentAmount, NumberOfPayments, WeekPayInterval);
