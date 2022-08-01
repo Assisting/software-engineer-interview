@@ -22,7 +22,7 @@ namespace Zip.InstallmentsService
         /// </summary>
         public decimal Amount { get; set; }
 
-        public string ToString()
+        public override string ToString()
         {
             return $"{this.DueDate} - {this.Amount}";
         }
