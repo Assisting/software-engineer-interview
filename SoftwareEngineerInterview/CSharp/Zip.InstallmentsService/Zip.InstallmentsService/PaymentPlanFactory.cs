@@ -1,3 +1,5 @@
+using System;
+
 namespace Zip.InstallmentsService
 {
     /// <summary>
@@ -12,8 +14,30 @@ namespace Zip.InstallmentsService
         /// <returns>The PaymentPlan created with all properties set.</returns>
         public PaymentPlan CreatePaymentPlan(decimal purchaseAmount)
         {
-            // TODO
-            return new PaymentPlan();
+            PaymentPlan plan = new PaymentPlan()
+            {
+                Id = Guid.NewGuid(),
+                PurchaseAmount = purchaseAmount,
+                Installments = new Installment[4]
+            };
+
+            decimal standardPaymentAmount = Math.Round(purchaseAmount / 4, 2);
+            decimal lastPayment = purchaseAmount - (standardPaymentAmount * 3);
+
+            for (int i = 0; i < 4; i++)
+            {
+                plan.Installments[i] = new Installment()
+                {
+                    Id = Guid.NewGuid(),
+                    DueDate = DateTime.UtcNow.AddDays(i * 14),
+                    Amount = standardPaymentAmount
+                };
+            }
+
+            // Last payment may have an odd amount due to decimal rounding of other payments
+            plan.Installments[3].Amount = lastPayment;
+
+            return plan;
         }
     }
 }
