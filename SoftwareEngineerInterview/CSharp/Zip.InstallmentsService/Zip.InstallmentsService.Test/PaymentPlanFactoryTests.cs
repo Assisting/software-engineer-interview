@@ -89,5 +89,42 @@ namespace Zip.InstallmentsService.Test
             // Assert
             paymentPlan.Installments[0].Amount.ShouldNotBe<decimal>(paymentPlan.Installments[3].Amount);
         }
+
+        [Fact]
+        public void WhenCreatingAFiveInstallmentPaymentPlan_PaymentsShouldBeTwentyDollars()
+        {
+            // Arrange
+            var paymentPlanFactory = new PaymentPlanFactory();
+
+            // Act
+            var paymentPlan = paymentPlanFactory.CreatePaymentPlan(100.00M, 5);
+
+            // Assert
+            paymentPlan.Installments.Length.ShouldBe<int>(5);
+            paymentPlan.Installments[0].Amount.ShouldBe<decimal>(20.00M);
+            paymentPlan.Installments[1].Amount.ShouldBe<decimal>(20.00M);
+            paymentPlan.Installments[2].Amount.ShouldBe<decimal>(20.00M);
+            paymentPlan.Installments[3].Amount.ShouldBe<decimal>(20.00M);
+            paymentPlan.Installments[4].Amount.ShouldBe<decimal>(20.00M);
+        }
+
+        [Fact]
+        public void WhenCreatingASlightlyLowerPurchaseAmount_PaymentsMustStillMakeSense()
+        {
+            // Arrange
+            var paymentPlanFactory = new PaymentPlanFactory();
+
+            // Act
+            var paymentPlan = paymentPlanFactory.CreatePaymentPlan(99.97M, 5);
+
+            // Assert
+            paymentPlan.Installments.Sum(installment => installment.Amount).ShouldBe<decimal>(99.97M);
+            paymentPlan.Installments.Length.ShouldBe<int>(5);
+            paymentPlan.Installments[0].Amount.ShouldBe<decimal>(20.00M);
+            paymentPlan.Installments[1].Amount.ShouldBe<decimal>(20.00M);
+            paymentPlan.Installments[2].Amount.ShouldBe<decimal>(19.99M);
+            paymentPlan.Installments[3].Amount.ShouldBe<decimal>(19.99M);
+            paymentPlan.Installments[4].Amount.ShouldBe<decimal>(19.99M);
+        }
     }
 }

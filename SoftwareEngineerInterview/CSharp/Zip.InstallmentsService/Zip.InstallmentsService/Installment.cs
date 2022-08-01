@@ -21,5 +21,10 @@ namespace Zip.InstallmentsService
         /// Gets or sets the amount of the installment.
         /// </summary>
         public decimal Amount { get; set; }
+
+        public string ToString()
+        {
+            return $"{this.DueDate} - {this.Amount}";
+        }
 	}
 }
